@@ -6,7 +6,7 @@ ML_IN_LITER = 1000
 
 
 def main():
-    """Главная функция"""
+    """Главная функция."""
     # 1. Знакомство
     user_name = input('Как вас зовут? ')
 
@@ -28,14 +28,22 @@ def main():
         try:
             weight_input = input('Какой у вас вес (кг)? ')
             user_weight = float(weight_input.replace(',', '.'))
+            break
+        except ValueError:
+            print(
+                'Ошибка: вес должны быть числом. '
+                'Попробуйте еще раз.',
+            )
 
+    while True:
+        try:
             height_input = input('Какой у вас рост (м)? ')
             user_height = float(height_input.replace(',', '.'))
             break
         except ValueError:
             print(
-                'Ошибка: вес и рост должны быть числами. '
-                'Попробуйте еще раз.',
+                'Ошибка: рост должен быть числом. '
+                'Попробуйте еще раз.'
             )
 
     # 3. Подсчет ИМТ
@@ -47,15 +55,17 @@ def main():
     # 5. Подсчет воды в литрах
     water_liters = water_needed / ML_IN_LITER
 
-    # 6. Вывод красивого результата
-    print(
-        f'Отчет для пользователя: {user_name} ({user_age} г.)\n'
-        f'Твой Индекс Массы Тела: {round(bmi, 1)}\n'
-        f'Рекомендуемая норма воды: {round(water_liters, 1)} л. в день\n'
-        f'Расчет окончен. Будьте здоровы!',
-    )
+    # 6. Возврат значений
+    return user_name, user_age, bmi, water_liters
 
 
 # 7. Точка входа в программу
 if __name__ == '__main__':
-    main()
+    name, age, bmi_result, water_result = main()
+# 8. Вывод результата
+print(
+    f'Отчет для пользователя: {name} ({age} г.)\n'
+    f'Твой Индекс Массы Тела: {round(bmi_result, 1)}\n'
+    f'Рекомендуемая норма воды: {round(water_result, 1)} л. в день\n'
+    f'Расчет окончен. Будьте здоровы!'
+)
